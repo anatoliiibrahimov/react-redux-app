@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class AboutPage extends Component{
+class AboutPage extends React.Component{
   render() {
     return(
       <div>
