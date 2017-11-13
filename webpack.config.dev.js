@@ -28,12 +28,105 @@ export default {
   ],
   module: {
     rules: [
-      {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel-loader']},
-      {test: /(\.css|\.scss|\.sass)$/, loaders: ['style-loader', 'css-loader?sourceMap', "postcss-loader", 'sass-loader?sourceMap']},
-      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file-loader'},
-      {test: /\.(woff|woff2)$/, loader: 'url-loader', options: {limit: 5000}},
-      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader', options: {limit: 5000, mimetype: 'application/octet-stream'}},
-      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader', options: {limit: 5000, mimetype: 'image/svg+xml'}}
+      {
+        enforce: 'pre',
+        test: /\.js?$/,
+        include: path.join(__dirname, 'src'),
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
+        }
+      },
+      {
+        test: /^.((?!cssmodule).)*\.css$/,
+        loaders: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' }
+        ]
+      },
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 5000, mimetype: 'application/octet-stream'
+        }
+      },
+      {
+        test: /\.(png|jpg|gif|mp4|ogg|svg|woff|woff2)$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /^.((?!cssmodule).)*\.(sass|scss)$/,
+        loaders: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'sass-loader' }
+        ]
+      },
+      {
+        test: /^.((?!cssmodule).)*\.less$/,
+        loaders: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'less-loader' }
+        ]
+      },
+      {
+        test: /^.((?!cssmodule).)*\.styl$/,
+        loaders: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'stylus-loader' }
+        ]
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
+        test: /\.cssmodule\.(sass|scss)$/,
+        loaders: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader'
+          },
+          { loader: 'sass-loader' }
+        ]
+      },
+      {
+        test: /\.cssmodule\.css$/,
+        loaders: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader'
+          }
+        ]
+      },
+      {
+        test: /\.cssmodule\.less$/,
+        loaders: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader'
+          },
+          { loader: 'less-loader' }
+        ]
+      },
+      {
+        test: /\.cssmodule\.styl$/,
+        loaders: [
+          { loader: 'style-loader' },
+          {
+            loader: 'css-loader'
+          },
+          { loader: 'stylus-loader' }
+        ]
+      }
     ]
   }
 };
+
