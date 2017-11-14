@@ -8,10 +8,10 @@ import CoursesPage from './components/course/CoursesPage';
 const routes = (
   <BrowserRouter>
     <div>
-      <Route path='/'  component={App} />
-      <Route exact path='/'  component={HomePage} />
-      <Route path='/about'  component={AboutPage} />
-      <Route path='/courses' component={CoursesPage} />
+      <Route path="/"  component={App} />
+      <Route exact path="/"  component={HomePage} />
+      <Route path="/about"  component={AboutPage} />
+      <Route path="/courses" component={CoursesPage} />
     </div>
   </BrowserRouter>
 );
