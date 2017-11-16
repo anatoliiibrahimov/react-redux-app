@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseForm from './CourseForm';
+import {withRouter} from "react-router-dom";
 
 class ManageCoursePage extends React.Component {
   constructor(props, context) {
@@ -27,6 +28,7 @@ class ManageCoursePage extends React.Component {
   saveCourse(event) {
     event.preventDefault();
     this.props.actions.saveCourse(this.state.course);
+    this.props.history.push("/courses");
   }
 
   render() {
@@ -45,11 +47,24 @@ class ManageCoursePage extends React.Component {
 ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  history: PropTypes.object
 };
 
+function getCourseId(courses, id) {
+  const course = courses.filter(course => course.id == id);
+  if (course) return course[0];
+  return null;
+}
+
 function mapStateToProps(state, ownProps) {
+  const courseId = ownProps.match.params.id;
+
   let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
+
+  if (courseId && state.courses.length > 0 ) {
+    course = getCourseId(state.courses, courseId);
+  }
 
   const authorsFormattedForDropdown = state.authors.map(author => {
     return {
@@ -70,4 +85,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage));
