@@ -4,14 +4,20 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as courseActions from '../../actions/courseActions';
 import CourseList from './CourseList';
+import {withRouter} from "react-router-dom";
 
 class CoursesPage extends React.Component {
   constructor(props, context) {
     super(props, context);
+    this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
   }
 
   courseRow(course, index) {
     return <div key={index}>{course.title}</div>;
+  }
+
+  redirectToAddCoursePage() {
+    this.props.history.push("/course");
   }
 
   render() {
@@ -20,6 +26,10 @@ class CoursesPage extends React.Component {
     return (
       <div>
         <h1>Courses</h1>
+        <input type="submit"
+          value="Add Course"
+          className="btn btn-primary"
+          onClick={this.redirectToAddCoursePage}/>
         <CourseList courses={courses} />
       </div>
     );
@@ -28,7 +38,8 @@ class CoursesPage extends React.Component {
 
 CoursesPage.propTypes = {
   courses: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  actions: PropTypes.object.isRequired,
+  history: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
@@ -43,4 +54,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CoursesPage));
