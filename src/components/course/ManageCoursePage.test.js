@@ -12,7 +12,7 @@ describe('Manage Course Page', () => {
       authors: [],
       actions: { saveCourse: () => { return Promise.resolve(); }},
       course: {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''}
-    }
+    };
     const wrapper = mount(<ManageCoursePage {...props}/>);
     const saveButton = wrapper.find('input').last();
     expect(saveButton.prop('type')).toBe('submit');
