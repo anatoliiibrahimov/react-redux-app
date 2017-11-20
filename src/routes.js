@@ -10,7 +10,7 @@ const routes = (
   <BrowserRouter>
     <div>
       <Route path="/"  component={App} />
-      <Route exact path="/"  component={HomePage} />
+      <Route exact path="/home"  component={HomePage} />
       <Route path="/about"  component={AboutPage} />
       <Route path="/courses" component={CoursesPage} />
       <Route exact path="/course" component={ManageCoursePage} />
