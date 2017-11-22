@@ -32,9 +32,9 @@ export default {
       {
         test: /.css$/,
         use: ExtractTextPlugin.extract({
-         fallback: "style-loader",
+        fallback: "style-loader",
         use: "css-loader",
-         publicPath: "/dist"
+        publicPath: "/dist"
        })
       },
       {
