@@ -38,11 +38,8 @@ export default {
         }
       },
       {
-        test: /^.((?!cssmodule).)*\.css$/,
-        loaders: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' }
-        ]
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
@@ -60,71 +57,18 @@ export default {
         loader: 'file-loader'
       },
       {
-        test: /^.((?!cssmodule).)*\.(sass|scss)$/,
-        loaders: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' }
-        ]
-      },
-      {
-        test: /^.((?!cssmodule).)*\.less$/,
-        loaders: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'less-loader' }
-        ]
-      },
-      {
-        test: /^.((?!cssmodule).)*\.styl$/,
-        loaders: [
-          { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'stylus-loader' }
-        ]
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
-      {
-        test: /\.cssmodule\.(sass|scss)$/,
-        loaders: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader'
-          },
-          { loader: 'sass-loader' }
-        ]
-      },
-      {
-        test: /\.cssmodule\.css$/,
-        loaders: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader'
-          }
-        ]
-      },
-      {
-        test: /\.cssmodule\.less$/,
-        loaders: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader'
-          },
-          { loader: 'less-loader' }
-        ]
-      },
-      {
-        test: /\.cssmodule\.styl$/,
-        loaders: [
-          { loader: 'style-loader' },
-          {
-            loader: 'css-loader'
-          },
-          { loader: 'stylus-loader' }
-        ]
+        test: /\.scss$/,
+        use: [{
+            loader: "style-loader"
+        }, {
+            loader: "css-loader", options: {
+                sourceMap: true
+            }
+        }, {
+            loader: "sass-loader", options: {
+                sourceMap: true
+            }
+        }]
       }
     ]
   }

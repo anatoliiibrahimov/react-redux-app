@@ -32,9 +32,9 @@ export default {
       {
         test: /.css$/,
         use: ExtractTextPlugin.extract({
-        fallback: "style-loader",
-        use: "css-loader",
-        publicPath: "/dist"
+          fallback: "style-loader",
+          use: "css-loader",
+          publicPath: "/dist"
        })
       },
       {
@@ -61,6 +61,20 @@ export default {
           limit: 5000, mimetype: 'application/octet-stream'
         }
       },
+      {
+        test: /\.scss$/,
+        use: [{
+            loader: "style-loader"
+        }, {
+            loader: "css-loader", options: {
+                sourceMap: true
+            }
+        }, {
+            loader: "sass-loader", options: {
+                sourceMap: true
+            }
+        }]
+      }
     ]
   }
 };
