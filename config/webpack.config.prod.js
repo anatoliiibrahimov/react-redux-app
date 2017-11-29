@@ -3,6 +3,9 @@ const commonConfig = require('./webpack.config.common.js');
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const GLOBALS = {
   'process.env.NODE_ENV' : JSON.stringify('production')
@@ -10,23 +13,35 @@ const GLOBALS = {
 
 module.exports = merge (commonConfig, {
   devtool: 'source-map',
-  entry: path.resolve(__dirname, '../src/index'),
+  entry: [
+    './src/index.js'
+  ],
   devServer: {
-    contentBase: path.resolve(__dirname, '../dist')
+    contentBase: ('dist')
   },
   plugins: [
     new webpack.DefinePlugin(GLOBALS),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true
-    }),
+    new UglifyJSPlugin(),
     new ExtractTextPlugin({
       filename: "styles.css",
       disable: false,
       allChunks: true
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Production'
+    }),
+    new CleanWebpackPlugin(['dist'], {
+      root: process.cwd()
     })
   ],
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.js?$/,
+        include: path.join(__dirname, '../src'),
+        loader: 'babel-loader',
+      },
       {
         test: /.css$/,
         use: ExtractTextPlugin.extract({

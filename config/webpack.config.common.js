@@ -1,24 +1,29 @@
-const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
   target: 'web',
+  devServer: {
+    inline: true,
+    host: "localhost",
+    historyApiFallback: true,
+    port: "8888"
+  },
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
     filename: 'bundle.js'
   },
+  resolve: { 
+    extensions: ['.js', '.jsx'],
+    modules: [
+      path.join(process.cwd(), 'src'),
+      path.join(process.cwd(), 'config'),
+      path.join(process.cwd(), 'node_modules'),
+      "node_modules",
+    ],
+  },
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        test: /\.js?$/,
-        include: path.join(__dirname, '../src'),
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
-        }
-      },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader'

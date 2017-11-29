@@ -7,11 +7,11 @@ module.exports = merge(commonConfig, {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'eventsource-polyfill',
-    'webpack-hot-middleware/client?reload=true',
     './src/index',
   ],
   devServer: {
-    contentBase: path.join(__dirname, '../src')
+    contentBase: ('src'),
+    hot: true
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({
@@ -23,6 +23,15 @@ module.exports = merge(commonConfig, {
   ],
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.js?$/,
+        include: path.join(__dirname, '../src'),
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
+        }
+      },
       {
         test: /\.css$/,
         use: [ 'style-loader', 'css-loader' ]
