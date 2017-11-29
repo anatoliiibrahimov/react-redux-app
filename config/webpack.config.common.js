@@ -1,45 +1,23 @@
-import webpack from 'webpack';
-import path from 'path';
+const webpack = require('webpack');
+const path = require('path');
 
-export default {
-  devtool: 'cheap-module-eval-source-map',
-  entry: [
-    'eventsource-polyfill',
-    'webpack-hot-middleware/client?reload=true',
-    './src/index'
-  ],
+module.exports = {
   target: 'web',
   output: {
-    path: path.resolve(__dirname, '/dist'),
+    path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
     filename: 'bundle.js'
   },
-  devServer: {
-    contentBase: path.join(__dirname, './src')
-    
-  },
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      debug: true,
-      noInfo: false,
-    }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ],
   module: {
     rules: [
       {
         enforce: 'pre',
         test: /\.js?$/,
-        include: path.join(__dirname, 'src'),
+        include: path.join(__dirname, '../src'),
         loader: 'babel-loader',
         query: {
           presets: ['es2015']
         }
-      },
-      {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
@@ -72,4 +50,4 @@ export default {
       }
     ]
   }
-};
+}
