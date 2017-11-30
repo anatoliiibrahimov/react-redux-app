@@ -1,14 +1,10 @@
 const path = require('path');
-const HOST = process.env.HOST || "localhost";
-const PORT = process.env.PORT || "8888";
 
 module.exports = {
   target: 'web',
   devServer: {
     inline: true,
-    host: HOST,
-    historyApiFallback: true,
-    port: PORT
+    historyApiFallback: true
   },
   output: {
     path: path.resolve(__dirname, '../dist'),

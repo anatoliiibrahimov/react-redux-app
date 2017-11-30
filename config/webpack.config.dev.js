@@ -2,6 +2,8 @@ const merge = require('webpack-merge');
 const commonConfig = require('./webpack.config.common.js');
 const path = require('path');
 const webpack = require('webpack');
+const HOST = process.env.HOST || "localhost";
+const PORT = process.env.PORT || "8888";
 
 module.exports = merge(commonConfig, {
   devtool: 'cheap-module-eval-source-map',
@@ -11,7 +13,9 @@ module.exports = merge(commonConfig, {
   ],
   devServer: {
     contentBase: ('src'),
-    hot: true
+    hot: true,
+    host: HOST,
+    port: PORT
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({
