@@ -37,12 +37,6 @@ module.exports = merge (commonConfig, {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.js?$/,
-        include: path.join(__dirname, '../src'),
-        loader: 'babel-loader',
-      },
-      {
         test: /.css$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",

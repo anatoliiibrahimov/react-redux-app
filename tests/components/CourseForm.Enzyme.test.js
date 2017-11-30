@@ -1,7 +1,7 @@
 import expect from 'expect';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-import CourseForm from './CourseForm';
+import CourseForm from '../../src/components/course/CourseForm';
 import { mount, configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 

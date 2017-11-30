@@ -1,12 +1,14 @@
 const path = require('path');
+const HOST = process.env.HOST || "localhost";
+const PORT = process.env.PORT || "8888";
 
 module.exports = {
   target: 'web',
   devServer: {
     inline: true,
-    host: "localhost",
+    host: HOST,
     historyApiFallback: true,
-    port: "8888"
+    port: PORT
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -24,6 +26,15 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.js?$/,
+        include: path.join(__dirname, '../src'),
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015']
+        }
+      },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'file-loader'

@@ -1,5 +1,5 @@
 import expect from 'expect';
-import {authorsFormattedForDropdown} from './selectors';
+import {authorsFormattedForDropdown} from '../../src/selectors/selectors';
 
 describe('Author Selectors', () => {
   describe('authorsFormattedForDropdown', () => {

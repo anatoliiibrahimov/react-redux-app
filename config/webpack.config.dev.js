@@ -24,15 +24,6 @@ module.exports = merge(commonConfig, {
   module: {
     rules: [
       {
-        enforce: 'pre',
-        test: /\.js?$/,
-        include: path.join(__dirname, '../src'),
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015']
-        }
-      },
-      {
         test: /\.css$/,
         use: [ 'style-loader', 'css-loader' ]
       }
