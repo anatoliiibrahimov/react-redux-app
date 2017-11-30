@@ -15,7 +15,6 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     modules: [
       path.join(process.cwd(), 'src'),
-      path.join(process.cwd(), 'config'),
       path.join(process.cwd(), 'node_modules'),
       "node_modules",
     ],
