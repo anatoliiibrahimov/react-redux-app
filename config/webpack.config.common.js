@@ -16,7 +16,7 @@ module.exports = {
     modules: [
       path.join(process.cwd(), 'src'),
       path.join(process.cwd(), 'node_modules'),
-      "node_modules",
+      "node_modules"
     ],
   },
   module: {
