@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Starter kit for React and Redux Pluralsight",
   "scripts": {
-    "prestart": "babel-node tools/startMessage.js",
-    "start": "npm-run-all --parallel open:src lint:watch",
-    "open:src": "webpack-dev-server --open --config config/webpack.config.dev.js",
+    "start": "webpack-dev-server --open --config config/webpack.config.dev.js",
     "lint": "node_modules/.bin/esw webpack.config.* src tools",
     "lint:watch": "npm run lint -- --watch",
     "test": "mocha-webpack --webpack-config config/webpack.config.test.js \"tests/**/*.test.js\"",

@@ -1,6 +1,6 @@
 import React from 'react';
 import expect from 'expect';
-import { ManageCoursePage } from '../../src/components/course/ManageCoursePage';
+import { ManageCoursePage } from 'components/course/ManageCoursePage';
 import { mount, configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import 'jsdom-global/register';

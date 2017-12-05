@@ -7,13 +7,5 @@ const webpack = require('webpack');
 module.exports = merge (commonConfig, {
   target: 'node',
   externals: [nodeExternals()],
-  devtool: "inline-cheap-module-source-map",
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        loader: "babel-loader"
-      }
-    ]
-  }
+  devtool: "inline-cheap-module-source-map"
 });

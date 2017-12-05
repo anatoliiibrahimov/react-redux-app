@@ -2,7 +2,7 @@ import expect from 'expect';
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import {createRenderer} from 'react-test-renderer/shallow';
-import CourseForm from '../../src/components/course/CourseForm';
+import CourseForm from 'components/course/CourseForm';
 
 function setup(saving) {
   let props = {

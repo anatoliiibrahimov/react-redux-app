@@ -24,7 +24,7 @@ module.exports = {
       {
         enforce: 'pre',
         test: /\.js?$/,
-        include: path.join(__dirname, '../src'),
+        exclude: /(node_modules|bower_components|dist\/)/,
         loader: 'babel-loader',
         query: {
           presets: ['es2015']
