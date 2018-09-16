@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import App from 'components/App';
-import HomePage from 'components/home/HomePage';
-import AboutPage from 'components/about/AboutPage';
-import CoursesPage from 'components/course/CoursesPage';
-import ManageCoursePage from 'components/course/ManageCoursePage'; //eslint-disable-line import/no-named-as-default
+import App from 'App';
+import HomePage from 'modules/Home/container';
+import AboutPage from 'modules/About/container';
+import CoursesPage from 'modules/Courses/container';
+import ManageCoursePage from 'modules/Courses/components/ManageCoursePage';
 
 const routes = (
   <BrowserRouter>
