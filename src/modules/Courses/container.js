@@ -1,15 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as courseActions from '../../actions/courseActions';
+import {fetchCourses} from './actions';
 import CourseList from './components/CourseList';
 import {withRouter} from 'react-router-dom';
+
+const connectState = state => ({
+  courses: state.courses,
+});
+
+const connectDispatch = dispatch => ({
+  fetchCourses: () => dispatch(fetchCourses()),
+});
 
 class CoursesPage extends React.Component {
   constructor(props, context) {
     super(props, context);
+
+    this.state = {
+      courses: [{id: 1}, {id: 2}],
+    };
+
     this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
+  }
+
+  componentDidMount() {
+    console.log('sdfsd');
+    this.props.fetchCourses()
+      .then((res) => console.log(res));
   }
 
   courseRow(course, index) {
@@ -21,7 +39,7 @@ class CoursesPage extends React.Component {
   }
 
   render() {
-    const {courses} = this.props;
+    // const {courses} = this.state.courses;
 
     return (
       <div>
@@ -30,7 +48,7 @@ class CoursesPage extends React.Component {
           value="Add Course"
           className="btn btn-primary"
           onClick={this.redirectToAddCoursePage}/>
-        <CourseList courses={courses} />
+        <CourseList courses={[{id: 1}]} />
       </div>
     );
   }
@@ -42,16 +60,4 @@ CoursesPage.propTypes = {
   history: PropTypes.object
 };
 
-function mapStateToProps(state, ownProps) {
-  return {
-    courses: state.courses
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(courseActions, dispatch)
-  };
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CoursesPage));
+export default withRouter(connect(connectState, connectDispatch)(CoursesPage));

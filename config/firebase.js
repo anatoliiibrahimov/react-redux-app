@@ -4,4 +4,4 @@ import { FirebaseConfig } from "./keys";
 firebase.initializeApp(FirebaseConfig);
 
 const databaseRef = firebase.database().ref();
-export const pluralsightApp = databaseRef.child("pluralsightApp");
+export const pluralsightAppRef = databaseRef.child("pluralsightApp");

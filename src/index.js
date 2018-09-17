@@ -2,20 +2,18 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import configureStore from 'store/configureStore';
+import { createStore, applyMiddleware } from "redux";
+import reduxThunk from "redux-thunk";
 import {Provider} from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import {loadCourses} from 'actions/courseActions';
-import {loadAuthors} from 'actions/authorActions';
 import App from './App';
 import HomePage from 'modules/Home/container';
 import AboutPage from 'modules/About/container';
-import CoursesPage from 'modules/Courses/container';
+import CoursesPage from 'modules/Courses';
 import ManageCoursePage from 'modules/Courses/components/ManageCoursePage';
+import rootReducer from './rootReducer';
 
-const store = configureStore();
-store.dispatch(loadCourses());
-store.dispatch(loadAuthors());
+const store = createStore(rootReducer, {}, applyMiddleware(reduxThunk));
 
 render(
   <Provider store={store}>
