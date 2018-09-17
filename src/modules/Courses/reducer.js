@@ -5,9 +5,10 @@ const initialState = {
   courses: [],
 };
 
-export default function courseReducer(state = initialState, action) {
+export default function courseRecourser(state = initialState, action) {
   switch(action.type) {
     case LOAD_COURSES_SUCCESS:
+      console.log(action.payload);
       return action.payload;
     default:
       return state;

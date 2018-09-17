@@ -24,10 +24,8 @@ class CoursesPage extends React.Component {
     this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
   }
 
-  componentDidMount() {
-    console.log('sdfsd');
-    this.props.fetchCourses()
-      .then((res) => console.log(res));
+  componentWillMount() {
+    this.props.fetchCourses();
   }
 
   courseRow(course, index) {

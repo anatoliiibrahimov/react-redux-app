@@ -3,7 +3,7 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { createStore, applyMiddleware } from "redux";
-import reduxThunk from "redux-thunk";
+import thunk from "redux-thunk";
 import {Provider} from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import App from './App';
@@ -13,10 +13,10 @@ import CoursesPage from 'modules/Courses';
 import ManageCoursePage from 'modules/Courses/components/ManageCoursePage';
 import rootReducer from './rootReducer';
 
-const store = createStore(rootReducer, {}, applyMiddleware(reduxThunk));
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
 
 render(
-  <Provider store={store}>
+  <Provider store={createStoreWithMiddleware(rootReducer)}>
     <Router>
       <Switch>
         <div>

@@ -1,7 +1,12 @@
-import * as firebase from "firebase";
+import * as firebase from 'firebase'
+const config = {
+  apiKey: "AIzaSyD_9CgKWzqEdkByTK6qsbpd0sQN4O8rPKg",
+  authDomain: "pluralsightapp.firebaseapp.com",
+  databaseURL: "https://pluralsightapp.firebaseio.com",
+  projectId: "pluralsightapp",
+  storageBucket: "pluralsightapp.appspot.com",
+  messagingSenderId: "1066438987105"
+};
+firebase.initializeApp(config);
 
-import { FirebaseConfig } from "./keys";
-firebase.initializeApp(FirebaseConfig);
-
-const databaseRef = firebase.database().ref();
-export const pluralsightAppRef = databaseRef.child("pluralsightApp");
+export const database = firebase.database().ref('pluralsightApp/')
