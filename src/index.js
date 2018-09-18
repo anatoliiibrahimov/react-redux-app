@@ -11,6 +11,7 @@ import HomePage from 'modules/Home/container';
 import AboutPage from 'modules/About/container';
 import CoursesPage from 'modules/Courses';
 import ManageCoursePage from 'modules/Courses/components/ManageCoursePage';
+import Charts from 'modules/Charts/container';
 import rootReducer from './rootReducer';
 
 const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
@@ -26,6 +27,7 @@ render(
           <Route path="/courses" component={CoursesPage} />
           <Route exact path="/course" component={ManageCoursePage} />
           <Route path="/course/:id" component={ManageCoursePage} />
+          <Route path="/charts" component={Charts} />
         </div>
       </Switch>
     </Router >
