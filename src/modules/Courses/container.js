@@ -5,14 +5,6 @@ import {fetchCourses} from './actions';
 import CourseList from './components/CourseList';
 import {withRouter} from 'react-router-dom';
 
-const connectState = state => ({
-  courses: state.courses,
-});
-
-const connectDispatch = dispatch => ({
-  fetchCourses: () => dispatch(fetchCourses()),
-});
-
 class CoursesPage extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -24,8 +16,14 @@ class CoursesPage extends React.Component {
     this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    console.log(this.props);
     this.props.fetchCourses();
+    console.log(this.props.fetchCourses)
+  }
+
+  componentWillRecieveProps(nextProps) {
+    console.log(nextProps);
   }
 
   courseRow(course, index) {
@@ -37,8 +35,12 @@ class CoursesPage extends React.Component {
   }
 
   render() {
-    // const {courses} = this.state.courses;
+    const {courses} = this.state.courses;
+    console.log(this.props.courses);
+    console.log(this.state.courses)
 
+    const peopleArray = this.props.courses && Object.keys(this.props.courses).map(i => this.props.courses[i]);
+    console.log(peopleArray);
     return (
       <div>
         <h1>Courses</h1>
@@ -46,7 +48,7 @@ class CoursesPage extends React.Component {
           value="Add Course"
           className="btn btn-primary"
           onClick={this.redirectToAddCoursePage}/>
-        <CourseList courses={[{id: 1}]} />
+        { this.props.courses && <CourseList courses={peopleArray} /> }
       </div>
     );
   }
@@ -58,4 +60,12 @@ CoursesPage.propTypes = {
   history: PropTypes.object
 };
 
-export default withRouter(connect(connectState, connectDispatch)(CoursesPage));
+const mapDispatchToProps = {
+  fetchCourses: fetchCourses,
+};
+
+const mapStateToProps = state => ({
+  courses: state.courseReducer.courses
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CoursesPage));

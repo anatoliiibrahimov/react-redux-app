@@ -1,4 +1,4 @@
-import { LOAD_COURSES_SUCCESS } from 'constants';
+import { FETCH_COURSES } from './constants';
 
 const initialState = {
   authors: [],
@@ -7,9 +7,12 @@ const initialState = {
 
 export default function courseRecourser(state = initialState, action) {
   switch(action.type) {
-    case LOAD_COURSES_SUCCESS:
-      console.log(action.payload);
-      return action.payload;
+    case FETCH_COURSES:
+    console.log(action);
+      return {
+        ...state,
+        courses: action.courses,
+      };
     default:
       return state;
   }

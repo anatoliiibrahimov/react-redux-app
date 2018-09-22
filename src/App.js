@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import './assets/styles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'toastr/build/toastr.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component {
   render() {

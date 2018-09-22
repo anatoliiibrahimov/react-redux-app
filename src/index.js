@@ -3,7 +3,7 @@ import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
+import createSagaMiddleware from 'redux-saga';
 import {Provider} from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import App from './App';
@@ -13,11 +13,14 @@ import CoursesPage from 'modules/Courses';
 import ManageCoursePage from 'modules/Courses/components/ManageCoursePage';
 import Charts from 'modules/Charts/container';
 import rootReducer from './rootReducer';
+import rootSaga from './rootSaga';
 
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const sagaMiddleware = createSagaMiddleware();
 
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+console.log(store);
 render(
-  <Provider store={createStoreWithMiddleware(rootReducer)}>
+  <Provider store={store}>
     <Router>
       <Switch>
         <div>
@@ -34,3 +37,5 @@ render(
   </Provider>,
   document.getElementById('app')
 );
+
+sagaMiddleware.run(rootSaga);

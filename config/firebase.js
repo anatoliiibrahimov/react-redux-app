@@ -1,4 +1,6 @@
 import * as firebase from 'firebase'
+import ReduxSagaFirebase from 'redux-saga-firebase';
+
 const config = {
   apiKey: "AIzaSyD_9CgKWzqEdkByTK6qsbpd0sQN4O8rPKg",
   authDomain: "pluralsightapp.firebaseapp.com",
@@ -7,6 +9,9 @@ const config = {
   storageBucket: "pluralsightapp.appspot.com",
   messagingSenderId: "1066438987105"
 };
-firebase.initializeApp(config);
 
-export const database = firebase.database().ref('pluralsightApp/')
+const FirebaseApp = firebase.initializeApp(config);
+
+export const RSF = new ReduxSagaFirebase(FirebaseApp);
+
+export const FirebaseDB = firebase.database();
