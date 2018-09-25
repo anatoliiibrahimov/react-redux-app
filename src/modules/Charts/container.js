@@ -5,6 +5,7 @@ import worldData from '../common/WorldData';
 import BarChart from './components/BarChart';
 import WorldMapChart from './components/WorldMapChart';
 import Brush from './components/Brush';
+import PieChart from './components/PieChart';
 
 const data = worldData.features;
 
@@ -60,6 +61,7 @@ class Charts extends React.Component {
           <Brush
             changeBrush={this.onBrush} size={[this.state.screenWidth, 50]}
           />
+          <PieChart radius={80} height={600} width={600}/>
         </div>
       </div>
     );

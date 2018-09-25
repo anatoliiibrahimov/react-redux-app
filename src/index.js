@@ -11,6 +11,7 @@ import HomePage from 'modules/Home/container';
 import AboutPage from 'modules/About/container';
 import CoursesPage from 'modules/Courses';
 import ManageCoursePage from 'modules/Courses/components/ManageCoursePage';
+import NewCourse from 'modules/Courses/components/NewCourse';
 import Charts from 'modules/Charts/container';
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
@@ -18,6 +19,7 @@ import rootSaga from './rootSaga';
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootSaga);
 console.log(store);
 render(
   <Provider store={store}>
@@ -28,7 +30,7 @@ render(
           <Route exact path="/"  component={HomePage} />
           <Route path="/about"  component={AboutPage} />
           <Route path="/courses" component={CoursesPage} />
-          <Route exact path="/course" component={ManageCoursePage} />
+          <Route exact path="/course" component={NewCourse} />
           <Route path="/course/:id" component={ManageCoursePage} />
           <Route path="/charts" component={Charts} />
         </div>
@@ -37,5 +39,3 @@ render(
   </Provider>,
   document.getElementById('app')
 );
-
-sagaMiddleware.run(rootSaga);

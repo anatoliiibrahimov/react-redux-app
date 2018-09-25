@@ -16,13 +16,13 @@ class CoursesPage extends React.Component {
     this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     console.log(this.props);
     this.props.fetchCourses();
     console.log(this.props.fetchCourses)
   }
 
-  componentWillRecieveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     console.log(nextProps);
   }
 
@@ -39,8 +39,8 @@ class CoursesPage extends React.Component {
     console.log(this.props.courses);
     console.log(this.state.courses)
 
-    const peopleArray = this.props.courses && Object.keys(this.props.courses).map(i => this.props.courses[i]);
-    console.log(peopleArray);
+    const coursesArray = this.props.courses && Object.keys(this.props.courses).map(i => this.props.courses[i]);
+    console.log(coursesArray);
     return (
       <div>
         <h1>Courses</h1>
@@ -48,7 +48,7 @@ class CoursesPage extends React.Component {
           value="Add Course"
           className="btn btn-primary"
           onClick={this.redirectToAddCoursePage}/>
-        { this.props.courses && <CourseList courses={peopleArray} /> }
+        { this.props.courses && <CourseList courses={coursesArray} /> }
       </div>
     );
   }
@@ -65,7 +65,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = state => ({
-  courses: state.courseReducer.courses
+  courses: state.courses.courses
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CoursesPage));

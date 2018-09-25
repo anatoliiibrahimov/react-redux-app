@@ -1,9 +1,9 @@
-import { call, fork, put, select, take } from 'redux-saga/effects';
+import { call, fork, put, select, take, takeLatest, takeEvery } from 'redux-saga/effects';
 
-import { fetchCourses } from './actions';
-import { FETCH_COURSES } from './constants';
+import { fetchCourses, fetchAuthors } from './actions';
 
 import { RSF } from '../../../config/firebase';
+import { UPDATE_COURSE, FETCH_COURSES, CREATE_COURSE } from './constants';
 
 export function* fetchListOfCourses() {
     const channel = yield call(RSF.database.channel, `/courses`);
@@ -14,8 +14,36 @@ export function* fetchListOfCourses() {
     }
 }
 
+export function* fetchListOfAuthors() {
+    const channel = yield call(RSF.database.channel, `/authors`);
+    console.log(channel);
+    while (true) {
+      const { value: authors } = yield take(channel);
+      yield put(fetchAuthors(authors));
+    }
+}
+
+export function* updateCurrentCourse(action) {
+	console.log(action);
+  yield call(RSF.database.patch, `/courses/${action.id}`, action.course);
+}
+
+export function* createNewCourse(action){
+	console.log(action);
+	yield call(RSF.database.create, `/courses`, {
+		title: action.course.title ? action.course.title : '',
+		category: action.course.category ? action.course.category : '',
+		id: action.course.id ? action.course.id : '',
+		key: action.course.key ? action.course.key : '',
+		authorId: action.course.authorId ? action.course.authorId : '',
+	});
+}
+
 export default function* rootSaga() {
   yield [
-    fork(fetchListOfCourses),
+    takeLatest(FETCH_COURSES, fetchListOfCourses),
+    fork(fetchListOfAuthors),
+    takeLatest(UPDATE_COURSE, updateCurrentCourse),
+    takeLatest(CREATE_COURSE, createNewCourse),
   ];
 }

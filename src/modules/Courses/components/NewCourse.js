@@ -1,29 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {fetchAuthors, updateCourse} from '../actions';
+import {fetchAuthors, createCourse} from '../actions';
 import CourseForm from './CourseForm';
 import {withRouter} from 'react-router-dom';
 import toastr from 'toastr';
 
-export class ManageCoursePage extends React.Component {
+export class NewCourse extends React.Component {
   constructor(props, context) {
     super(props, context);
-
+    const key =  Math.floor(Math.random() * Math.floor(100));
     this.state = {
-      course: Object.assign({}, this.props.course),
+      course: {key, id: key},
       errors: {},
       saving: false
     };
     this.saveCourse = this.saveCourse.bind(this);
     this.updateCourseState = this.updateCourseState.bind(this);
-  }
-
-  componentWillReceiveProps(prevProps, nextProps) {
-    if (this.props.course.id != nextProps.course.id) {
-      this.setState({course: Object.assign({}, nextProps.course)});
-    }
   }
 
   updateCourseState(event) {
@@ -54,10 +47,8 @@ export class ManageCoursePage extends React.Component {
     }
 
     this.setState({saving: true});
-    const courseId = this.state.course.id;
-    console.log(courseId);
-    this.props.updateCourse(courseId, this.state.course);
-    this.redirect()
+    this.props.createCourse(this.state.course);
+    this.redirect();
   }
 
   redirect() {
@@ -83,36 +74,18 @@ export class ManageCoursePage extends React.Component {
   }
 }
 
-ManageCoursePage.propTypes = {
+NewCourse.propTypes = {
   course: PropTypes.object.isRequired,
   authors: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
   history: PropTypes.object
 };
 
-function getCourseId(courses, id) {
-  console.log(courses);
-  const course = courses.filter(course => course.id == id);
-  if (course) return course[0];
-  return null;
-}
 
 const mapStateToProps = (state, ownProps) => {
-  const courseId = ownProps.match.params.id;
-  console.log(ownProps)
-  let course = {id: '', watchHref: '', title: '', authorId: '', length: '', category: ''};
-  console.log(courseId);
-  console.log(state.courseReducer)
-  const courses = Object.keys(state.courses.courses).map(i => state.courses.courses[i]);
-  console.log(courses);
-  if (courseId && courses.length > 0 ) {
-    course = getCourseId(courses, courseId);
-  }
-
   return {
-    course: course,
     authors: state.authors.authors,
   };
 }
 
-export default withRouter(connect(mapStateToProps, ({ updateCourse }))(ManageCoursePage));
+export default withRouter(connect(mapStateToProps, ({ createCourse }))(NewCourse));

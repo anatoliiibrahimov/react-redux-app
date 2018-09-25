@@ -4,7 +4,7 @@ import TextInput from '../../common/TextInput';
 import SelectInput from '../../common/SelectInput';
 
 const CourseForm = ({ course, allAuthors, onSave, saving, onChange, errors }) => {
-
+    console.log(course);
   return (
 
     <form action="">
