@@ -33,6 +33,7 @@ module.exports = {
     "no-confusing-arrow": [0],
     "react/no-unused-state": [0],
     "jsx-a11y/label-has-for": [0],
-    "react/destructuring-assigment": [0],
+    "react/destructuring-assignment": [0],
+    "prefer-destructuring": [0],
   }
 };

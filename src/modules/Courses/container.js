@@ -1,29 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {fetchCourses} from './actions';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { fetchCourses } from './actions';
 import CourseList from './components/CourseList';
-import {withRouter} from 'react-router-dom';
 
 class CoursesPage extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      courses: [{id: 1}, {id: 2}],
+      courses: [{ id: 1 }, { id: 2 }],
     };
 
     this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
   }
 
-  componentWillMount() {
-    console.log(this.props);
+  componentDidMount() {
     this.props.fetchCourses();
-    console.log(this.props.fetchCourses)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
   }
 
   courseRow(course, index) {
@@ -31,23 +25,26 @@ class CoursesPage extends React.Component {
   }
 
   redirectToAddCoursePage() {
-    this.props.history.push("/course");
+    this.props.history.push('/course');
   }
 
   render() {
-    const {courses} = this.state.courses;
+    const { courses } = this.state;
     console.log(this.props.courses);
-    console.log(this.state.courses)
+    console.log(courses);
 
-    const coursesArray = this.props.courses && Object.keys(this.props.courses).map(i => this.props.courses[i]);
+    const coursesArray = this.props.courses
+      && Object.keys(this.props.courses).map(i => this.props.courses[i]);
     console.log(coursesArray);
     return (
       <div>
         <h1>Courses</h1>
-        <input type="submit"
+        <input
+          type="submit"
           value="Add Course"
           className="btn btn-primary"
-          onClick={this.redirectToAddCoursePage}/>
+          onClick={this.redirectToAddCoursePage}
+        />
         { this.props.courses && <CourseList courses={coursesArray} /> }
       </div>
     );
@@ -55,17 +52,18 @@ class CoursesPage extends React.Component {
 }
 
 CoursesPage.propTypes = {
-  courses: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
-  history: PropTypes.object
+  courses: PropTypes.objectOf(PropTypes.any).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  fetchCourses: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-  fetchCourses: fetchCourses,
+  fetchCourses,
 };
 
 const mapStateToProps = state => ({
-  courses: state.courses.courses
+  courses: state.courses.courses,
+  authors: state.authors.authors,
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CoursesPage));

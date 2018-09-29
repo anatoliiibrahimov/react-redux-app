@@ -8,8 +8,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AboutPage from './modules/About/container';
 import CoursesPage from './modules/Courses';
-import { ManageCoursePage } from './modules/Courses/components/ManageCoursePage';
-import { NewCourse } from './modules/Courses/components/NewCourse';
+import ManageCourse from './modules/Courses/components/ManageCoursePage';
+import AddCourse from './modules/Courses/components/NewCourse';
 import Charts from './modules/Charts/container';
 import App from './App';
 import HomePage from './modules/Home/container';
@@ -30,8 +30,8 @@ render(
           <Route exact path="/" component={HomePage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/courses" component={CoursesPage} />
-          <Route exact path="/course" component={NewCourse} />
-          <Route path="/course/:id" component={ManageCoursePage} />
+          <Route exact path="/course" component={AddCourse} />
+          <Route path="/course/:id" component={ManageCourse} />
           <Route path="/charts" component={Charts} />
         </div>
       </Switch>

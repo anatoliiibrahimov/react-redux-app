@@ -1,4 +1,9 @@
-import { FETCH_COURSES, FETCH_AUTHORS, UPDATE_COURSE, CREATE_COURSE } from "./constants";
+import {
+  FETCH_COURSES,
+  FETCH_AUTHORS,
+  UPDATE_COURSE,
+  CREATE_COURSE,
+} from './constants';
 
 export const fetchCourses = courses => ({
   type: FETCH_COURSES,
@@ -17,7 +22,7 @@ export const updateCourse = (id, course) => ({
   course,
 });
 
-export const createCourse = (course) => ({
+export const createCourse = course => ({
   type: CREATE_COURSE,
   course,
 });

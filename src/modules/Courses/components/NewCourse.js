@@ -1,19 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {fetchAuthors, createCourse} from '../actions';
-import CourseForm from './CourseForm';
-import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import toastr from 'toastr';
+import { createCourse } from '../actions';
+import CourseForm from './CourseForm';
 
 export class NewCourse extends React.Component {
   constructor(props, context) {
     super(props, context);
-    const key =  Math.floor(Math.random() * Math.floor(100));
+    const key = Math.floor(Math.random() * Math.floor(100));
     this.state = {
-      course: {key, id: key},
+      course: {
+        key,
+        id: key,
+      },
       errors: {},
-      saving: false
+      saving: false,
     };
     this.saveCourse = this.saveCourse.bind(this);
     this.updateCourseState = this.updateCourseState.bind(this);
@@ -21,48 +24,49 @@ export class NewCourse extends React.Component {
 
   updateCourseState(event) {
     const field = event.target.name;
-    let course = this.state.course;
+    const { course } = this.state;
     course[field] = event.target.value;
-    return this.setState({course: course});
+    return this.setState({ course });
   }
 
   courseFormIsValid() {
     let formIsValid = true;
-    let errors = {};
+    const errors = {};
 
     if (this.state.course.title.length < 5) {
       errors.title = 'Title must be at least 5 characters.';
       formIsValid = false;
     }
 
-    this.setState({errors: errors});
+    this.setState({ errors });
     return formIsValid;
   }
 
   saveCourse(event) {
     event.preventDefault();
 
-    if(!this.courseFormIsValid()) {
+    if (!this.courseFormIsValid()) {
       return;
     }
 
-    this.setState({saving: true});
+    this.setState({ saving: true });
     this.props.createCourse(this.state.course);
     this.redirect();
   }
 
   redirect() {
-    this.setState({saving: false});
+    this.setState({ saving: false });
     toastr.success('Course saved');
-    this.props.history.push("/courses");
+    this.props.history.push('/courses');
   }
 
   render() {
-    console.log(this.props.authors)
-    const authorsArray = this.props.authors && Object.keys(this.props.authors).map(i => this.props.authors[i]);
+    console.log(this.props.authors);
+    const authorsArray = this.props.authors
+      && Object.keys(this.props.authors).map(i => this.props.authors[i]);
     console.log(authorsArray);
     return (
-      <CourseForm 
+      <CourseForm
         allAuthors={authorsArray}
         onChange={this.updateCourseState}
         onSave={this.saveCourse}
@@ -75,17 +79,15 @@ export class NewCourse extends React.Component {
 }
 
 NewCourse.propTypes = {
-  course: PropTypes.object.isRequired,
-  authors: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired,
-  history: PropTypes.object
+  course: PropTypes.objectOf(PropTypes.any).isRequired,
+  authors: PropTypes.objectOf(PropTypes.any).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  createCourse: PropTypes.func.isRequired,
 };
 
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    authors: state.authors.authors,
-  };
-}
+const mapStateToProps = state => ({
+  authors: state.authors.authors,
+});
 
 export default withRouter(connect(mapStateToProps, ({ createCourse }))(NewCourse));
