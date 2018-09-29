@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CourseListRow from './CourseListRow';
 
-const CourseList = ({courses}) => {
-  return (
-    <table className="table">
-      <thead>
+const CourseList = ({
+  courses,
+}) => (
+  <table className="table">
+    <thead>
       <tr>
         <th>&nbsp;</th>
         <th>Title</th>
@@ -13,18 +14,17 @@ const CourseList = ({courses}) => {
         <th>Category</th>
         <th>Length</th>
       </tr>
-      </thead>
-      <tbody>
-      {courses.map(course => 
+    </thead>
+    <tbody>
+      {courses.map(course => (
         <CourseListRow key={course.id} course={course} />
-      )}
-      </tbody>
-    </table>
-  );
-};
+      ))}
+    </tbody>
+  </table>
+);
 
 CourseList.propTypes = {
-  courses: PropTypes.array.isRequired
+  courses: PropTypes.arrayOf(PropTypes.any).isRequired,
 };
 
 export default CourseList;

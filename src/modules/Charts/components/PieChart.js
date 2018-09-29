@@ -4,7 +4,6 @@ import * as d3 from 'd3';
 import d3Tip from 'd3-tip';
 
 export class PieChart extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +65,8 @@ export class PieChart extends React.Component {
 
   redrawChart() {
     const { radius, height, width } = this.props;
-    let chartData = [{name: 'test1', value: '30'}, {name: 'test', value: '40'}, {name: 'test3', value: '30'}];
+    const { containerWidth } = this.state;
+    let chartData = [{ name: 'test1', value: '30' }, { name: 'test', value: '40' }, { name: 'test3', value: '30' }];
 
     chartData = chartData.map((d) => {
       const value = Math.round(d.value * 100) / 100;
@@ -84,7 +84,7 @@ export class PieChart extends React.Component {
     const pie = d3.pie()
       .value(d => d.value)(chartData);
 
-    const parentWidth = this.state.containerWidth;
+    const parentWidth = containerWidth;
 
     const realHeight = height;
     const realWidth = parentWidth || width;
@@ -98,7 +98,7 @@ export class PieChart extends React.Component {
 
     const g = holder.selectAll('.arc')
       .data(pie)
-    .enter().append('g')
+      .enter().append('g')
       .attr('class', 'arc');
 
     g.append('path')
@@ -108,7 +108,7 @@ export class PieChart extends React.Component {
     const legendHolder = svg.select('.legend-holder');
     const legendG = legendHolder.selectAll('.legend')
       .data(pie)
-    .enter().append('g')
+      .enter().append('g')
       .attr('transform', (d, i) => `translate(20,${(i * 20) + 40})`)
       .attr('class', 'legend');
 
@@ -149,5 +149,11 @@ export class PieChart extends React.Component {
     );
   }
 }
+
+PieChart.propTypes = {
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
+  radius: PropTypes.number.isRequired,
+};
 
 export default PieChart;

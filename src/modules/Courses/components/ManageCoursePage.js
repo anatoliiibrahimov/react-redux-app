@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {fetchAuthors, updateCourse} from '../actions';
-import CourseForm from './CourseForm';
-import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import toastr from 'toastr';
+import { updateCourse } from '../actions';
+import CourseForm from './CourseForm';
 
 export class ManageCoursePage extends React.Component {
   constructor(props, context) {
@@ -14,8 +13,9 @@ export class ManageCoursePage extends React.Component {
     this.state = {
       course: Object.assign({}, this.props.course),
       errors: {},
-      saving: false
+      saving: false,
     };
+
     this.saveCourse = this.saveCourse.bind(this);
     this.updateCourseState = this.updateCourseState.bind(this);
   }
