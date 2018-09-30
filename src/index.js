@@ -1,26 +1,41 @@
-/*eslint-disable import/default*/
+/* eslint-disable import/default */
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import configureStore from 'store/configureStore';
-import {Provider} from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
-import routes from 'routes';
-import {loadCourses} from 'actions/courseActions';
-import {loadAuthors} from 'actions/authorActions';
-import 'styles/styles.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'toastr/build/toastr.min.css';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import AboutPage from './modules/About/container';
+import CoursesPage from './modules/Courses';
+import ManageCourse from './modules/Courses/components/ManageCoursePage';
+import AddCourse from './modules/Courses/components/NewCourse';
+import Charts from './modules/Charts/container';
+import App from './App';
+import HomePage from './modules/Home/container';
+import rootReducer from './rootReducer';
+import rootSaga from './rootSaga';
 
-const store = configureStore();
-store.dispatch(loadCourses());
-store.dispatch(loadAuthors());
+const sagaMiddleware = createSagaMiddleware();
 
+const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootSaga);
+console.log(store);
 render(
   <Provider store={store}>
-    <BrowserRouter>
-      {routes}
-    </BrowserRouter >
+    <Router>
+      <Switch>
+        <div>
+          <Route path="/" component={App} />
+          <Route exact path="/" component={HomePage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/courses" component={CoursesPage} />
+          <Route exact path="/course" component={AddCourse} />
+          <Route path="/course/:id" component={ManageCourse} />
+          <Route path="/charts" component={Charts} />
+        </div>
+      </Switch>
+    </Router>
   </Provider>,
-  document.getElementById('app')
+  window.document.getElementById('app'),
 );
