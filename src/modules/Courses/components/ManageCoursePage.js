@@ -53,9 +53,7 @@ export class ManageCoursePage extends React.Component {
     }
 
     this.setState({ saving: true });
-    const courseId = this.state.course.id;
-    console.log(courseId);
-    this.props.updateCourse(courseId, this.state.course);
+    this.props.updateCourse(this.state.course);
     this.redirect();
   }
 
@@ -66,13 +64,11 @@ export class ManageCoursePage extends React.Component {
   }
 
   render() {
-    console.log(this.props.authors);
-    const authorsArray = this.props.authors
-      && Object.keys(this.props.authors).map(i => this.props.authors[i]);
-    console.log(authorsArray);
+    const { authors } = this.props;
+
     return (
       <CourseForm
-        allAuthors={authorsArray}
+        allAuthors={authors}
         onChange={this.updateCourseState}
         onSave={this.saveCourse}
         course={this.state.course}
@@ -107,10 +103,9 @@ const mapStateToProps = (state, ownProps) => {
     length: '',
     category: '',
   };
-  console.log(courseId);
-  console.log(state.courseReducer);
-  const courses = Object.keys(state.courses.courses).map(i => state.courses.courses[i]);
-  console.log(courses);
+
+  const courses = state.courses.courses;
+
   if (courseId && courses.length > 0) {
     course = getCourseId(courses, courseId);
   }

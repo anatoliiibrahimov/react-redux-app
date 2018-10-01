@@ -1,24 +1,26 @@
+/* global describe it */
 import expect from 'expect';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
-import {createRenderer} from 'react-test-renderer/shallow';
-import CourseForm from 'components/course/CourseForm';
+import { createRenderer } from 'react-test-renderer/shallow';
+import CourseForm from '../../../../src/modules/Courses/components/CourseForm';
 
 function setup(saving) {
-  let props = {
-    course: {}, saving: saving, errors: {},
+  const props = {
+    course: {},
+    saving,
+    errors: {},
     onSave: () => {},
-    onChange: () => {}
+    onChange: () => {},
   };
 
-  let renderer = createRenderer();
-  renderer.render(<CourseForm {...props}/>);
-  let output = renderer.getRenderOutput();
+  const renderer = createRenderer();
+  renderer.render(<CourseForm {...props} />);
+  const output = renderer.getRenderOutput();
 
   return {
     props,
     output,
-    renderer
+    renderer,
   };
 }
 
@@ -26,7 +28,7 @@ describe('CourseForm via React Test Utils', () => {
   it('renders form and h1', () => {
     const { output } = setup();
     expect(output.type).toBe('form');
-    let [h1] = output.props.children;
+    const [h1] = output.props.children;
     expect(h1.type).toBe('h1');
   });
 
@@ -41,5 +43,4 @@ describe('CourseForm via React Test Utils', () => {
     const submitButton = output.props.children[5];
     expect(submitButton.props.value).toBe('Saving...');
   });
-
 });

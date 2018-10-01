@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import toastr from 'toastr';
-import { createCourse } from '../actions';
+import { updateCourse } from '../actions';
 import CourseForm from './CourseForm';
 
 export class NewCourse extends React.Component {
@@ -50,7 +50,7 @@ export class NewCourse extends React.Component {
     }
 
     this.setState({ saving: true });
-    this.props.createCourse(this.state.course);
+    this.props.updateCourse(this.state.course);
     this.redirect();
   }
 
@@ -61,13 +61,11 @@ export class NewCourse extends React.Component {
   }
 
   render() {
-    console.log(this.props.authors);
-    const authorsArray = this.props.authors
-      && Object.keys(this.props.authors).map(i => this.props.authors[i]);
-    console.log(authorsArray);
+    const { authors } = this.props;
+
     return (
       <CourseForm
-        allAuthors={authorsArray}
+        allAuthors={authors}
         onChange={this.updateCourseState}
         onSave={this.saveCourse}
         course={this.state.course}
@@ -82,7 +80,7 @@ NewCourse.propTypes = {
   course: PropTypes.objectOf(PropTypes.any).isRequired,
   authors: PropTypes.objectOf(PropTypes.any).isRequired,
   history: PropTypes.objectOf(PropTypes.any).isRequired,
-  createCourse: PropTypes.func.isRequired,
+  updateCourse: PropTypes.func.isRequired,
 };
 
 
@@ -90,4 +88,4 @@ const mapStateToProps = state => ({
   authors: state.authors.authors,
 });
 
-export default withRouter(connect(mapStateToProps, ({ createCourse }))(NewCourse));
+export default withRouter(connect(mapStateToProps, ({ updateCourse }))(NewCourse));

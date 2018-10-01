@@ -1,16 +1,18 @@
+/* global describe it */
 import expect from 'expect';
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
-import CourseForm from 'components/course/CourseForm';
-import { mount, configure, shallow } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import CourseForm from '../../../../src/modules/Courses/components/CourseForm';
 
 configure({ adapter: new Adapter() });
 function setup(saving) {
   const props = {
-    course: {}, saving: saving, errors: {},
+    course: {},
+    saving,
+    errors: {},
     onSave: () => {},
-    onChange: () => {}
+    onChange: () => {},
   };
 
   return shallow(<CourseForm {...props} />);
