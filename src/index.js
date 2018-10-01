@@ -20,7 +20,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootSaga);
-console.log(store);
+
 render(
   <Provider store={store}>
     <Router>

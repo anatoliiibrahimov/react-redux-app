@@ -1,4 +1,4 @@
-import { FETCH_COURSES, FETCH_AUTHORS, CREATE_COURSE } from './constants';
+import { FETCH_COURSES, FETCH_AUTHORS } from './constants';
 
 const initialState = {
   authors: [],
@@ -8,24 +8,14 @@ const initialState = {
 function CourseReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_COURSES:
-      console.log(action);
       return {
         ...state,
-        courses: action.courses,
+        courses: Object.keys(action.courses).map(i => action.courses[i]),
       };
     case FETCH_AUTHORS:
-      console.log(action);
       return {
         ...state,
-        authors: action.authors,
-      };
-    case CREATE_COURSE:
-      console.log(action);
-      return {
-        ...state,
-        courses: [
-          ...state.courses, action.course,
-        ],
+        authors: Object.keys(action.authors).map(i => action.authors[i]),
       };
     default:
       return state;
